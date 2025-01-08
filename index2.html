@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    
+
+    <h1>Tri par Insertion</h1>
+    <p>Entrez une liste de nombres séparés par des virgules :</p>
+    <input type="text" id="inputArray" placeholder="Exemple : 5, 2, 9, 1, 5, 6">
+    <button onclick="sortArray()">Trier</button>
+
+    <h2>Résultats :</h2>
+    <p id="output"></p>
+
+    <script>
+        function insertionSort(arr) {
+            // Parcourir le tableau à partir du deuxième élément
+            for (let i = 1; i < arr.length; i++) {
+                // Choisir l'élément actuel à insérer
+                let current = arr[i];
+                let j = i - 1;
+
+                // Déplacer les éléments de la séquence triée qui sont plus grands que `current`
+                while (j >= 0 && arr[j] > current) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                }
+
+                // Insérer l'élément actuel à la bonne position
+                arr[j + 1] = current;
+            }
+
+            return arr;
+        }
+
+        function sortArray() {
+            // Récupérer la saisie utilisateur
+            const input = document.getElementById("inputArray").value;
+
+            // Convertir la saisie en tableau de nombres
+            const arr = input.split(',').map(Number);
+
+            // Vérifier si tous les éléments sont des nombres valides
+            if (arr.some(isNaN)) {
+                document.getElementById("output").innerText = "Veuillez entrer une liste valide de nombres séparés par des virgules.";
+                return;
+            }
+
+            // Trier le tableau avec l'algorithme Insertion Sort
+            const sortedArray = insertionSort(arr);
+
+            // Afficher le tableau trié
+            document.getElementById("output").innerText = "Tableau trié : " + sortedArray.join(', ');
+        }
+    </script>
+</body>
+
+</html>
