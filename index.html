@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 1 Algo</title>
+    
+</head>
+<body>
+    <h1>Analyse de Phrase</h1>
+    <p>Veuillez entrer une phrase se terminant par un point :</p>
+    <textarea id="phraseInput" rows="4" cols="50"></textarea>
+    <br>
+    <button onclick="analyserPhrase()">Analyser</button>
+    <h2>Résultats :</h2>
+    <p id="resultats"></p>
+
+    <script>
+      
+                  // Initialisation des compteurs
+                  let longueurPhrase = 0;
+                  let nombreMots = 0;
+                  let nombreVoyelles = 0;
+                  // Liste des voyelles
+                  const voyelles = "abcdeYOUIRS";
+        function analyserPhrase() {
+            // Récupération de la phrase
+            const phrase = document.getElementById("phraseInput").value;
+
+            // Vérification si la phrase se termine par un point
+            if (phrase[phrase.length - 1] !== ".") {
+                document.getElementById("resultats").innerText = "Erreur : La phrase doit se terminer par un point.";
+                return;
+            }
+
+
+            // Parcours caractère par caractère
+            let estMot = false;
+            for (let i = 0; i < phrase.length; i++) {
+                const char = phrase[i];
+
+                // Incrémentation du compteur de caractères
+                longueurPhrase++;
+
+                // Vérification si le caractère est une voyelle
+                if (voyelles.includes(char)) {
+                    nombreVoyelles++;
+                }
+
+                // Vérification des mots
+                if (/[a-zA-Z]/.test(char)) {
+                    estMot = true;
+                } else if (char === " " || char === ".") {
+                    if (estMot) {
+                        nombreMots++;
+                        estMot = false;
+                    }
+                }
+            }
+
+            // Affichage des résultats
+            document.getElementById("resultats").innerHTML = `
+                <strong>Longueur de la phrase :</strong> ${longueurPhrase} caractères<br>
+                <strong>Nombre de mots :</strong> ${nombreMots}<br>
+                <strong>Nombre de voyelles :</strong> ${nombreVoyelles}
+            `;
+        }
+    </script>
+</body>
+</html>
